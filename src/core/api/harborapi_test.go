@@ -137,10 +137,6 @@ func init() {
 	beego.Router("/api/projects/:pid([0-9]+)/robots/:id([0-9]+)", &RobotAPI{}, "get:Get;put:Put;delete:Delete")
 
 	beego.Router("/api/replication/adapters", &ReplicationAdapterAPI{}, "get:List")
-	beego.Router("/api/replication/executions", &ReplicationOperationAPI{}, "get:ListExecutions;post:CreateExecution")
-	beego.Router("/api/replication/executions/:id([0-9]+)", &ReplicationOperationAPI{}, "get:GetExecution;put:StopExecution")
-	beego.Router("/api/replication/executions/:id([0-9]+)/tasks", &ReplicationOperationAPI{}, "get:ListTasks")
-	beego.Router("/api/replication/executions/:id([0-9]+)/tasks/:tid([0-9]+)/log", &ReplicationOperationAPI{}, "get:GetTaskLog")
 
 	beego.Router("/api/replication/policies", &ReplicationPolicyAPI{}, "get:List;post:Create")
 	beego.Router("/api/replication/policies/:id([0-9]+)", &ReplicationPolicyAPI{}, "get:Get;put:Update;delete:Delete")
@@ -214,7 +210,7 @@ func init() {
 	mockServer := test.NewJobServiceServer()
 	defer mockServer.Close()
 
-	chain := middleware.Chain(orm.Middleware(), security.Middleware())
+	chain := middleware.Chain(orm.Middleware(), security.Middleware(), security.UnauthorizedMiddleware())
 	handler = chain(beego.BeeApp.Handlers)
 }
 

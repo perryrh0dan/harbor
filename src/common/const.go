@@ -105,6 +105,7 @@ const (
 	OIDCCLientID                     = "oidc_client_id"
 	OIDCClientSecret                 = "oidc_client_secret"
 	OIDCVerifyCert                   = "oidc_verify_cert"
+	OIDCAdminGroup                   = "oidc_admin_group"
 	OIDCGroupsClaim                  = "oidc_groups_claim"
 	OIDCAutoOnboard                  = "oidc_auto_onboard"
 	OIDCScope                        = "oidc_scope"
@@ -135,6 +136,8 @@ const (
 	DefaultRegistryCtlURL             = "http://registryctl:8080"
 	// Use this prefix to distinguish harbor user, the prefix contains a special character($), so it cannot be registered as a harbor user.
 	RobotPrefix = "robot$"
+	// System admin defined the robot name prefix.
+	RobotNamePrefix = "robot_name_prefix"
 	// Use this prefix to index user who tries to login with web hook token.
 	AuthProxyUserNamePrefix = "tokenreview$"
 	CoreConfigPath          = "/api/internal/configurations"
@@ -156,4 +159,9 @@ const (
 
 	// DefaultGCTimeWindowHours is the reserve blob time window used by GC, default is 2 hours
 	DefaultGCTimeWindowHours = int64(2)
+
+	// Metric setting items
+	MetricEnable = "metric_enable"
+	MetricPort   = "metric_port"
+	MetricPath   = "metric_path"
 )

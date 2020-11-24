@@ -366,7 +366,9 @@
         "EXPIRES_AT": "到期日",
         "EXPIRATION_TOOLTIP": "如不设置，将会使用系统设置中的过期时间。",
         "INVALID_VALUE": "无效的过期日期",
-        "NEVER_EXPIRED": "永不过期"
+        "NEVER_EXPIRED": "永不过期",
+        "NAME_PREFIX": "机器人账户名称前缀",
+        "NAME_PREFIX_REQUIRED": "机器人账户名称前缀为必填项"
     },
     "WEBHOOK": {
         "EDIT_BUTTON": "编辑",
@@ -659,7 +661,8 @@
         "DELETED_FAILED": "删除目标失败。",
         "CANNOT_EDIT": "当复制规则启用时目标无法修改。",
         "FAILED_TO_DELETE_TARGET_IN_USED": "无法删除正在使用的目标。",
-        "PLACEHOLDER": "未发现任何复制目标!"
+        "PLACEHOLDER": "未发现任何复制目标!",
+        "DEPRECATED": "Helm Hub 正被移至 Artifact Hub"
     },
     "REPOSITORY": {
         "COPY_DIGEST_ID": "复制摘要",
@@ -869,6 +872,7 @@
             "LDAP_UID": "在搜索中用来匹配用户的属性，可以是uid,cn,email,sAMAccountName或者其它LDAP/AD服务器支持的属性。",
             "LDAP_SCOPE": "搜索用户的范围。",
             "TOKEN_EXPIRATION": "由令牌服务创建的令牌的过期时间（分钟），默认为30分钟。",
+            "ROBOT_NAME_PREFIX": "每个机器人账户名称的前缀字符串,默认值为 'robot$'",
             "ROBOT_TOKEN_EXPIRATION": "机器人账户的令牌的过期时间（天），默认为30天,显示的结果为分钟转化的天数并向下取整。",
             "PRO_CREATION_RESTRICTION": "用来确定哪些用户有权限创建项目，默认为’所有人‘，设置为’仅管理员‘则只有管理员可以创建项目。",
             "ROOT_CERT_DOWNLOAD": "下载镜像库根证书。",
@@ -927,7 +931,9 @@
             "OIDC_SETNAME": "设置OIDC用户名",
             "OIDC_SETNAMECONTENT": "在通过第三方（OIDC）进行身份验证时，您必须第一次创建一个Harbor用户名。这将在Harbor中用于与项目、角色等关联。",
             "OIDC_USERNAME": "用户名",
-            "GROUP_CLAIM_NAME": "组名称"
+            "GROUP_CLAIM_NAME": "组名称",
+            "OIDC_ADMIN_GROUP": "OIDC管理员组",
+            "OIDC_ADMIN_GROUP_INFO": "OIDC管理员组名称。所有该组内用户都会有管理员权限，此属性可以为空。"
         },
         "SCANNING": {
             "TRIGGER_SCAN_ALL_SUCCESS": "启动扫描所有镜像任务成功!",
@@ -1014,7 +1020,8 @@
             "COLUMN_FIXED": "修复版本",
             "COLUMN_DESCRIPTION": "简介",
             "FOOT_ITEMS": "项目",
-            "FOOT_OF": "总共"
+            "FOOT_OF": "总共",
+            "IN_ALLOW_LIST": "已入特赦名单"
         },
         "CHART": {
             "SCANNING_TIME": "扫描完成时间:",
@@ -1452,7 +1459,7 @@
         "ENABLE_ACTION": "启用",
         "DISABLE_ACTION": "禁用",
         "DELETE_ACTION": "删除",
-        "NOT_FOUND": "未发现任何记录",
+        "NOT_FOUND": "未发现任何实例",
         "NAME": "名称",
         "ENDPOINT": "端点",
         "STATUS": "状态",
@@ -1579,5 +1586,8 @@
         "SKIP_CERT_VERIFY": "当远端服务使用自签或不可信证书时可勾选此项以跳过证书认证。",
         "DESTINATION_NAME_TOOLTIP": "策略名称由小写字符、数字和._-/组成且至少2个字符并以字符或者数字开头。",
         "NEED_HELP": "请先让您的系统管理员添加提供商"
+    },
+    "PAGINATION": {
+        "PAGE_SIZE": "页面大小"
     }
 }

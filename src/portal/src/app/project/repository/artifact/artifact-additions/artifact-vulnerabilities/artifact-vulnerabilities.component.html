@@ -28,7 +28,7 @@
             <clr-dg-column [clrDgField]="'package'">{{'VULNERABILITY.GRID.COLUMN_PACKAGE' | translate}}</clr-dg-column>
             <clr-dg-column [clrDgField]="'version'">{{'VULNERABILITY.GRID.COLUMN_VERSION' | translate}}</clr-dg-column>
             <clr-dg-column [clrDgField]="'fix_version'">{{'VULNERABILITY.GRID.COLUMN_FIXED' | translate}}</clr-dg-column>
-
+            <clr-dg-column *ngIf="isSystemAdmin()">{{'VULNERABILITY.GRID.IN_ALLOW_LIST' | translate}}</clr-dg-column>
             <clr-dg-placeholder>
                 <span *ngIf="hasScanned();else elseBlock">{{'VULNERABILITY.STATE.OTHER_STATUS' | translate}}</span>
                 <ng-template #elseBlock>
@@ -67,14 +67,19 @@
                     </div>
                     <ng-template #elseBlock>{{res.fix_version}}</ng-template>
                 </clr-dg-cell>
+                <clr-dg-cell *ngIf="isSystemAdmin()">
+                    {{(isInAllowList(res.id)?"TAG_RETENTION.YES":"TAG_RETENTION.NO") | translate}}
+                </clr-dg-cell>
                 <clr-dg-row-detail *clrIfExpanded>
                     {{'VULNERABILITY.GRID.COLUMN_DESCRIPTION' | translate}}: {{res.description}}
                 </clr-dg-row-detail>
             </clr-dg-row>
 
             <clr-dg-footer>
-                <span *ngIf="scanningResults?.length">{{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'VULNERABILITY.GRID.FOOT_OF' | translate}}</span> {{scanningResults?.length}} {{'VULNERABILITY.GRID.FOOT_ITEMS' | translate}}
-                <clr-dg-pagination #pagination [clrDgPageSize]="25" [clrDgTotalItems]="scanningResults?.length"></clr-dg-pagination>
+                <clr-dg-pagination #pagination [clrDgPageSize]="25" [clrDgTotalItems]="scanningResults?.length">
+                    <clr-dg-page-size [clrPageSizeOptions]="[15,25,50]">{{"PAGINATION.PAGE_SIZE" | translate}}</clr-dg-page-size>
+                    <span *ngIf="scanningResults?.length">{{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'VULNERABILITY.GRID.FOOT_OF' | translate}}</span> {{scanningResults?.length}} {{'VULNERABILITY.GRID.FOOT_ITEMS' | translate}}
+                </clr-dg-pagination>
             </clr-dg-footer>
         </clr-datagrid>
     </div>

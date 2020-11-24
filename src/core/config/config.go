@@ -27,8 +27,6 @@ import (
 	comcfg "github.com/goharbor/harbor/src/common/config"
 	"github.com/goharbor/harbor/src/common/models"
 	"github.com/goharbor/harbor/src/common/secret"
-	"github.com/goharbor/harbor/src/core/promgr"
-	"github.com/goharbor/harbor/src/core/promgr/pmsdriver/local"
 	"github.com/goharbor/harbor/src/lib/log"
 )
 
@@ -43,9 +41,7 @@ const (
 var (
 	// SecretStore manages secrets
 	SecretStore *secret.Store
-	// GlobalProjectMgr is initialized based on the deploy mode
-	GlobalProjectMgr promgr.ProjectManager
-	keyProvider      comcfg.KeyProvider
+	keyProvider comcfg.KeyProvider
 	// defined as a var for testing.
 	defaultCACertPath = "/etc/core/ca/ca.crt"
 	cfgMgr            *comcfg.CfgManager
@@ -61,9 +57,6 @@ func Init() {
 	log.Info("init secret store")
 	// init secret store
 	initSecretStore()
-	log.Info("init project manager")
-	// init project manager
-	initProjectManager()
 }
 
 // InitWithSettings init config with predefined configs, and optionally overwrite the keyprovider
@@ -90,11 +83,6 @@ func initSecretStore() {
 	m := map[string]string{}
 	m[JobserviceSecret()] = secret.JobserviceUser
 	SecretStore = secret.NewStore(m)
-}
-
-func initProjectManager() {
-	log.Info("initializing the project manager based on local database...")
-	GlobalProjectMgr = promgr.NewDefaultProjectManager(local.NewDriver(), true)
 }
 
 // GetCfgManager return the current config manager
@@ -440,6 +428,7 @@ func OIDCSetting() (*models.OIDCSetting, error) {
 		ClientID:     cfgMgr.Get(common.OIDCCLientID).GetString(),
 		ClientSecret: cfgMgr.Get(common.OIDCClientSecret).GetString(),
 		GroupsClaim:  cfgMgr.Get(common.OIDCGroupsClaim).GetString(),
+		AdminGroup:   cfgMgr.Get(common.OIDCAdminGroup).GetString(),
 		RedirectURL:  extEndpoint + common.OIDCCallbackPath,
 		Scope:        scope,
 		UserClaim:    cfgMgr.Get(common.OIDCUserClaim).GetString(),
@@ -485,4 +474,18 @@ func GetGCTimeWindow() int64 {
 		}
 	}
 	return common.DefaultGCTimeWindowHours
+}
+
+// RobotPrefix user defined robot name prefix.
+func RobotPrefix() string {
+	return cfgMgr.Get(common.RobotNamePrefix).GetString()
+}
+
+// Metric returns the overall metric settings
+func Metric() *models.Metric {
+	return &models.Metric{
+		Enabled: cfgMgr.Get(common.MetricEnable).GetBool(),
+		Port:    cfgMgr.Get(common.MetricPort).GetInt(),
+		Path:    cfgMgr.Get(common.MetricPath).GetString(),
+	}
 }
